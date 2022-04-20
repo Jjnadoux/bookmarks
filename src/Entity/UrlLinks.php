@@ -67,4 +67,158 @@ use Doctrine\ORM\Mapping as ORM;
      * @ORM\Column(name="publishedDate", type="date")
      */
     private $publishedDate;
+
+    /**
+     * Get $publishedDate
+     *
+     * @return  date
+     */ 
+    public function getPublishedDate()
+    {
+        return $this->publishedDate;
+    }
+
+    /**
+     * Set $publishedDate
+     *
+     * @param  date  $publishedDate  $publishedDate
+     *
+     * @return  self
+     */ 
+    public function setPublishedDate($publishedDate)
+    {
+        $this->publishedDate = $publishedDate;
+
+        return $this;
+    }
+
+    /**
+     * Get $addDate
+     *
+     * @return  date
+     */ 
+    public function getAddDate()
+    {
+        return $this->addDate;
+    }
+
+    /**
+     * Set $addDate
+     *
+     * @param  dateTime  $addDate  $addDate
+     *
+     * @return  self
+     */ 
+    public function setAddDate($addDate)
+    {
+        $this->addDate = $addDate;
+
+        return $this;
+    }
+
+    /**
+     * Get $author
+     *
+     * @return  string
+     */ 
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Set $author
+     *
+     * @param  string  $author  $author
+     *
+     * @return  self
+     */ 
+    public function setAuthor(string $author)
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * Get $id
+     *
+     * @return  integer
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Get $url
+     *
+     * @return  string
+     */ 
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * Set $url
+     *
+     * @param  string  $url  $url
+     *
+     * @return  self
+     */ 
+    public function setUrl(string $url)
+    {
+        $this->url = $url;
+
+        return $this;
+    }
+
+    /**
+     * Get $title
+     *
+     * @return  string
+     */ 
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set $title
+     *
+     * @param  string  $title  $title
+     *
+     * @return  self
+     */ 
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get $provider
+     *
+     * @return  string
+     */ 
+    public function getProvider()
+    {
+        return $this->provider;
+    }
+
+    /**
+     * Set $provider
+     *
+     * @param  string  $provider  $provider
+     *
+     * @return  self
+     */ 
+    public function setProvider(string $provider)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
  }
