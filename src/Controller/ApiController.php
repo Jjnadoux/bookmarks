@@ -10,10 +10,19 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
+use OpenApi\Annotations as OA;
+
 class ApiController extends AbstractController
 {
     /**
      * @Route("/api/urllink/add")
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="add a new Link",
+     *     )
      */
     public function addUrl(Request $request, ApiService $service): Response
     {
