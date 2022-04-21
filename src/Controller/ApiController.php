@@ -3,54 +3,103 @@
 namespace App\Controller;
 
 use App\Services\ApiService;
-use DateTime;
 use Embed\Embed;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Annotations as OA;
 
 class ApiController extends AbstractController
 {
     /**
-     * @Route("/api/urllink/add")
+     * Add a new Link.
+     * 
+     * @Route("/api/urllink/add", methods={"POST"})
      *
      * @OA\Response(
      *     response=200,
-     *     description="add a new Link",
+     *     description="New Link added",
      *     )
-     */
-    public function addUrl(Request $request, ApiService $service): Response
+     * @OA\Response(
+     *     response=400,
+     *     description="It is not a url returning an image or a video",
+     *     )
+     * @OA\Parameter(
+     *     name="url",
+     *     in="query",
+     *     description="url to add",
+     *     @OA\Schema(type="string")
+     * )
+     * 
+     * @param Request $request
+     * @param ApiService $apiService
+     * 
+     * @return Response
+    */
+    public function addUrl(Request $request, ApiService $apiService): Response
     {
-        $urllink = $request->query->get("url");
+        $urlLink = $request->query->get("url");
       
         $embed = new Embed();
         
-        $info = $embed->get($urllink);
+        $info = $embed->get($urlLink);
         $oembed = $info->getOEmbed();
-        dump($oembed);
         $type = $oembed->get('type');
-        $title = $info->title;
-        $author = $info->authorName;
-        $provider = $info->providerName;
-        $url = $info->url;
-        $publishedDate = $info->publishedTime;
-        $height = $oembed->get('height');
-        $width = $oembed->get('width');
-        if ($type == "video"){
-            $time = $oembed->get('duration');
-        } else {
-            $time = null;
+        // In case url returns neither image nor video.
+        if ($type == null){
+            return $this->json("It's not a url returning an image or a video", 400);
         }
-        $addDate = new DateTime();
-        
-        $newLink = $service->newLink($type,$title, $author,$url,$provider,$publishedDate,$addDate,$width,$height,$time);
-    
 
-         return $this->json(['response'=> $newLink],200);
+        $apiService->createNewLink($info);
+    
+        return $this->json('Successful creation', 200);
+    }
+
+    
+    /**
+     * Delete link.
+     * 
+     * @Route("/api/urllink/delete/{id}", methods={"DELETE"})
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="link deleted",
+     *     )
+     * @OA\Response(
+     *     response=400,
+     *     description="link no found",
+     *     )
+     * 
+     * @param ApiService $apiService
+     * @param int $id
+     *
+     * @return Response
+    */
+    public function deleteLink(ApiService $apiService, $id): Response
+    {
+        $apiService->deletedLink($id);
+
+        return $this->json("link deleted", 200);
+    }
+
+    /**
+     * Get all links.
+     *
+     * @Route("/api/urllinks", methods={"GET"})
+     *
+     * @OA\Response(
+     *     response=200,
+     *     description="list of Links",
+     *     )
+     * @param ApiService $apiService
+     *
+     * @return Response
+    */
+    public function listLinks(ApiService $apiService): Response
+    {
+        $links = $apiService->listAllLink();
+       
+        return $this->json(['response' => $links]);
     }
 }

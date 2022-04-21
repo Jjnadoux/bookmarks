@@ -4,12 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * UrlLink
  *
  * @ORM\Table(name="urllink")
- * @ORM\Entity(repositoryClass="App\Repository\LinkRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UrlLinksRepository")
  * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
  * @ORM\DiscriminatorMap({"video_db" = "VideoLink", "image_db" = "ImageLink"})
