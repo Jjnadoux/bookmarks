@@ -49,7 +49,7 @@ use Doctrine\ORM\Mapping as ORM;
      /**
      * @var string $author
      *
-     * @ORM\Column(name="author", type="string", length=255)
+     * @ORM\Column(name="author", type="string", length=255, nullable=true)
      */
     private $author;
 
@@ -63,12 +63,12 @@ use Doctrine\ORM\Mapping as ORM;
     /**
      * @var date $publishedDate
      *
-     * @ORM\Column(name="publishedDate", type="date")
+     * @ORM\Column(name="publishedDate", type="date", nullable=true)
      */
     private $publishedDate;
 
     /**
-     * Get $publishedDate
+     * Get $publishedDate 
      *
      * @return  date
      */ 
@@ -118,9 +118,9 @@ use Doctrine\ORM\Mapping as ORM;
     /**
      * Get $author
      *
-     * @return  string
+     * @return  string|NULL
      */ 
-    public function getAuthor()
+    public function getAuthor(): ?string
     {
         return $this->author;
     }
@@ -128,11 +128,11 @@ use Doctrine\ORM\Mapping as ORM;
     /**
      * Set $author
      *
-     * @param  string  $author  $author
+     * @param  string|NULL  $author  $author
      *
      * @return  self
      */ 
-    public function setAuthor(string $author)
+    public function setAuthor(?string $author)
     {
         $this->author = $author;
 

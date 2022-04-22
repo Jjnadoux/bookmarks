@@ -36,7 +36,6 @@ class ApiService
   {
     $oembed = $info->getOEmbed();
     $type = $oembed->get('type');
-
     $title = $info->title;
     $author = $info->authorName;
     $provider = $info->providerName;
@@ -48,6 +47,7 @@ class ApiService
     if ($type === "video") {
       // create VideoLink entity
       $newLink = new VideoLink ();
+      dump($oembed->get('duration'));
       $newLink->setTime($oembed->get('duration'));
     }
     else {

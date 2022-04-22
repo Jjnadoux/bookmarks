@@ -19,7 +19,7 @@ class ApiController extends AbstractController
      *
      * @OA\Response(
      *     response=200,
-     *     description="New Link added",
+     *     description="Successful creation",
      *     )
      * @OA\Response(
      *     response=400,
